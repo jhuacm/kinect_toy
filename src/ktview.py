@@ -44,7 +44,7 @@ class CVKTView(KTView):
 		self._depthRawName = name + DEPTH_RAW_SUFFIX
 		self._depthFilteredName = name + DEPTH_FILTERED_SUFFIX
 		self._visible = False
-		self._debug = False
+		self._debug = debug
 
 	def setVisible(self, visible):
 		self._visible = visible
@@ -73,6 +73,11 @@ class CVKTView(KTView):
 #Drawing Functions
 	def _drawMainWindow(self):
 		windowImage = self.getFrame().getImage()
+		faces = self.getFrame().getFaces()
+		for face in faces:
+			v1 = face.getV1()
+			v2 = face.getV2()
+			cv.Rectangle(windowImage, v1, v2, (255, 255, 255))
 		cv.ShowImage(self.getName(), windowImage)
 	
 	def _drawDebuggingWindows(self):
