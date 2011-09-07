@@ -7,7 +7,6 @@
 """
 import freenect
 import frame_convert as fc
-import cv
 
 class Kinect(object):
 	def getDepthData(self):
@@ -29,7 +28,6 @@ class Kinect(object):
 		image = self.getImageData()
 		depth = self.getDepthData()
 		return (image, depth)
-
 
 class KTKinectError(Exception):
 	def __init__(self, reason):

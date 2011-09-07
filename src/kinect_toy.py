@@ -33,7 +33,8 @@ def parseArgs(args):
 	global debug
 	global cascadePath
 	global detectInterval
-	for string in args:
+	global usageNeeded
+	for string in args[1:]:
 		strings = string.split("=")
 		if string == "--debug":
 			debug = True
@@ -48,7 +49,7 @@ def parseArgs(args):
 			break
 
 def usage(name):
-	print """usage: %s [--detect-interval=<float>] [--cascade-path=<path>] [--debug | -d]"""
+	print """usage: %s [--detect-interval=<float>] [--cascade-path=<path>] [--debug | -d]""" % name
 
 def main():
 	global debug
@@ -76,7 +77,7 @@ def main():
 if __name__ == "__main__":
 	parseArgs(sys.argv)
 	if usageNeeded:
-		usage()
+		usage(sys.argv[0])
 	else:
 		instructions()
 		main()
