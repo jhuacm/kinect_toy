@@ -10,7 +10,6 @@ import frame_convert as fc
 import cv
 
 class Kinect(object):
-	
 	def getDepthData(self):
 		npDepth, _ = freenect.sync_get_depth()
 		cvDepth = fc.pretty_depth_cv(npDepth)

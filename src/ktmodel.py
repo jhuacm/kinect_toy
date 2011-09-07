@@ -24,10 +24,10 @@ class Frame(object):
 	def getImage(self):
 		return self._image
 	
-	def getRawDepth(self):
+	def getDepthRaw(self):
 		return self._rawDepth
 	
-	def getFilteredDepth(self):
+	def getDepthFiltered(self):
 		return self._filteredDepth
 	
 	def registerObserver(self, observer):

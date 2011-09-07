@@ -14,7 +14,16 @@ import ktmodel as ktm
 import ktview as ktv
 
 WINDOW_NAME = "JHUACM Kinect Demo"
+quitChars = ('q', chr(27))
+debugChars = ('d')
+quitInts = set(map(ord, quitChars))
+debugInts = set(map(ord, debugChars))
 debug = False
+
+
+def instructions():
+	print "Press %s or ESC inside the window to quit" % " ".join(quitChars)
+	print "Press d to toggle debugging mode"
 
 def parseArgs(args):
 	global debug
@@ -22,24 +31,29 @@ def parseArgs(args):
 		if string == "--debug":
 			debug = True
 
-def main(args):
-	parseArgs(args)
+def main():
+	global debug
 	kinect = ktk.Kinect()
 	image, depth = kinect.getSensorData()
 	frame = ktm.Frame(image, depth)
-	view = ktv.CVKTView(WINDOW_NAME, frame)
+	view = ktv.CVKTView(WINDOW_NAME, frame, debug)
 	view.setVisible(True)
 	while True:
 		image, depth = kinect.getSensorData()
 		frame.update(image, depth)
 		char = cv.WaitKey(10)
-		if char == 27:
+		if char in quitInts:
 			break
+		elif char in debugInts:
+			debug = not debug
+			view.setDebug(debug)
 		elif char == -1:
 			pass
 		else:
 			print char
 
 if __name__ == "__main__":
-	main(sys.argv[:])
+	instructions()
+	parseArgs(sys.argv)
+	main()
 	

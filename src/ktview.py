@@ -17,6 +17,7 @@ class KTView(object):
 	def __init__(self, name, frame):
 		self._name = name
 		self._frame = frame
+		self._frame.registerObserver(self)
 	
 	def getName(self):
 		return self._name
@@ -44,7 +45,6 @@ class CVKTView(KTView):
 		self._depthFilteredName = name + DEPTH_FILTERED_SUFFIX
 		self._visible = False
 		self._debug = False
-		self._frame.registerObserver(self)
 
 	def setVisible(self, visible):
 		self._visible = visible
@@ -76,8 +76,10 @@ class CVKTView(KTView):
 		cv.ShowImage(self.getName(), windowImage)
 	
 	def _drawDebuggingWindows(self):
-		pass
-
+		frame = self.getFrame()
+		cv.ShowImage(self._imageRawName, frame.getImage())
+		cv.ShowImage(self._depthRawName, frame.getDepthRaw())
+		cv.ShowImage(self._depthFilteredName, frame.getDepthFiltered())
 
 #Window management functions
 	def _createMainWindow(self):
