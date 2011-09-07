@@ -1,0 +1,7 @@
+This toy is hopefully going to be used at the SAC fair to entice our audience and automate membership :).
+
+Setup (for me) was a huge pain. So far we rely on:
+libfreenect (aka OpenKinect)
+OpenCV
+
+Both of these projects should be built with python bindings installed.
