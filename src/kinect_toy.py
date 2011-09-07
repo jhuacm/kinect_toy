@@ -14,14 +14,29 @@ import ktmodel as ktm
 import ktview as ktv
 
 WINDOW_NAME = "JHUACM Kinect Demo"
+
+#commadn line switches
 cascadePath = None
 detectInterval = -1.0
-quitChars = ('q', chr(27))
-debugChars = ('d')
-quitInts = set(map(ord, quitChars))
-debugInts = set(map(ord, debugChars))
 debug = False
 usageNeeded = False
+
+#character maps for control
+def charsToInt(characterSet):
+	return set(map(ord, characterSet))
+
+quitChars = ('q', chr(27))
+debugChars = ('d')
+upChars = ('w')
+downChars = ('s')
+levelChars = ('e')
+quitInts = charsToInt(quitChars)
+debugInts = charsToInt(debugChars)
+upInts = charsToInt(upChars)
+downInts = charsToInt(downChars)
+levelInts = charsToInt(levelChars)
+movementInts = upInts.union(downInts).union(levelInts)
+
 
 def instructions():
 	print "Select the window and type the following commands:"
@@ -69,6 +84,17 @@ def main():
 		elif char in debugInts:
 			debug = not debug
 			view.setDebug(debug)
+			"""
+		elif char in movementInts:
+			frame.stopDetecting()
+			if char in upInts:
+				kinect.adjustTilt(1)
+			elif char in downInts:
+				kinect.adjustTilt(-1)
+			elif char in levelInts:
+				kinect.resetTilt()
+			frame.startDetecting()
+			"""
 		elif char == -1:
 			pass
 		else:

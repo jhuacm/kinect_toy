@@ -77,7 +77,8 @@ class CVKTView(KTView):
 		for face in faces:
 			v1 = face.getV1()
 			v2 = face.getV2()
-			cv.Rectangle(windowImage, v1, v2, (255, 255, 255))
+			color = face.getColor()
+			cv.Rectangle(windowImage, v1, v2, color)
 		cv.ShowImage(self.getName(), windowImage)
 	
 	def _drawDebuggingWindows(self):
