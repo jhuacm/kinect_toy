@@ -77,18 +77,15 @@ class Face(object):
 		return ret
 	
 	def _contains(self, rect):
-		mid = midpoint(rect)
-		x = self.getX()
-		if mid[0] < x:
+		myX = self.getX()
+		otherX = rect[0]
+		res = otherX - myX
+		if res < 0 or res > self.getWidth():
 			return False
-		x += self.getWidth()
-		if mid[0] > x:
-			return False
-		y = self.getY()
-		if mid[1] < y:
-			return False
-		y += self.getHeight()
-		if mid[1] > y:
+		myY = self.getY()
+		otherY = rect[1]
+		res = otherY - myY
+		if res < 0 or res > self.getHeight():
 			return False
 		return True
 		
